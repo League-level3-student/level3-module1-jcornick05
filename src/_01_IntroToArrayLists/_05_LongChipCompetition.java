@@ -18,6 +18,13 @@ public class _05_LongChipCompetition {
 		_05_LongChipCompetition lcc = new _05_LongChipCompetition();
 		lcc.initializeBeatles();
 		
+		for (int i = 0; i < lcc.theBeatles.size(); i++) {
+			if (lcc.theBeatles.get(i).getChips().getLength()>lcc.theBeatles.get(i-=1).getChips().getLength()) {
+				System.out.println(lcc.theBeatles.get(i));
+			}
+		}
+		
+		
 	}
 	
 	private void initializeBeatles() {
