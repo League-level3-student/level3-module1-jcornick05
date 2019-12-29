@@ -1,5 +1,6 @@
 package _01_IntroToArrayLists;
 
+import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -17,14 +18,26 @@ public class _05_LongChipCompetition {
 	public static void main(String[] args) {
 		_05_LongChipCompetition lcc = new _05_LongChipCompetition();
 		lcc.initializeBeatles();
-		
-		for (int i = 0; i < lcc.theBeatles.size(); i++) {
-			if (lcc.theBeatles.get(i).getChips().getLength()>lcc.theBeatles.get(i-=1).getChips().getLength()) {
-				System.out.println(lcc.theBeatles.get(i));
+		ArrayList <Beatle> band = lcc.theBeatles;
+		String s= "";
+		double biggerest = 0;
+		for (int i = 0; i < band.size(); i++) {
+			ArrayList <Chip> chips = band.get(i).getChips();
+			double biggest = 0;
+			for (int j = 0; j < chips.size(); j++) {
+				if (chips.get(j).getLength()>biggest) {
+					biggest = chips.get(j).getLength();
+					
+				}
+				
+			}
+			if (biggest>biggerest) {
+				biggerest=biggest;
+				s = band.get(i).getName();
+				
 			}
 		}
-		
-		
+		System.out.println(s);
 	}
 	
 	private void initializeBeatles() {
