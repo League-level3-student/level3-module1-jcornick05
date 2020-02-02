@@ -17,14 +17,21 @@ public class _06_IPodShuffle implements ActionListener{
 	JFrame frame = new JFrame();
 	JPanel panel = new JPanel();
 	JButton shuffle = new JButton();
-	Song song = new Song("demo.mp3");
+	JButton stop = new JButton();
+	Song song1 = new Song("demo.mp3");
+	Song song2 = new Song("The Duck - The Duck Song (The Duck and the Lemonade Stand) my-free-mp3s.com .mp3");
+	Song song3 = new Song("The Birthday Singers - Happy Birthday to You my-free-mp3s.com .mp3");
+	Song song4 = new Song("GAS! - Gas! (Club Mix) (Club Mix) my-free-mp3s.com .mp3");
 	public _06_IPodShuffle() {
 		// 1. Use the Song class the play the demo.mp3 file.
-	songs.equals("Baby Shark Dance Sing and Dance! Animal Songs PINKFONG Songs for Children.mp3");
+	songs.add(song1);
 		shuffle.setText("shuffle");
+		stop.setText("Stop");
+		stop.addActionListener(this);
 		shuffle.addActionListener(this);
 		frame.add(panel);
 		panel.add(shuffle);
+		panel.add(stop);
 		frame.pack();
 		frame.setVisible(true);
 				
@@ -40,7 +47,6 @@ public class _06_IPodShuffle implements ActionListener{
 	
 	public static void main(String[] args) {
 		new _06_IPodShuffle();
-	
 //		song.setDuration(5);
 //			song.play();
 
@@ -48,9 +54,29 @@ public class _06_IPodShuffle implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource()==shuffle) {
+			song1.stop();
+			song2.stop();
+			song3.stop();
+			song4.stop();
 			Random rand = new Random();
-			rand.nextInt(4);
+			int random = rand.nextInt(4);
+			if (random==0) {
+				song1.play();
+			}
+			else if (random==1) {
+				song2.play();
+			}
+			else if(random==2){
+				song3.play();
+			}else {
+				song4.play();
+			}
 			
+		}
+		if (e.getSource()==stop) {
+			song1.stop();
+			song2.stop();
+			song3.stop();
 		}
 	}
 }
