@@ -7,6 +7,7 @@ public class IntegerStack {
 	//   to a new array of length 0. This prevents null pointer exceptions.
 	public IntegerStack() {
 		 intArray = new int[0];
+		 //System.out.println(intArray.length);
 	}
 	
 	//3. Complete the steps in the push method.
@@ -15,6 +16,7 @@ public class IntegerStack {
 		int intArray1[] = new int[intArray.length+1];
 		//B. set the last element of the new array equal to the integer passed into the method
 		intArray1[intArray1.length-1] = intArray1[v];
+
 		//C. iterate through the member array and copy all the elements into the new array
 		for (int i = 0; i < intArray.length; i++) {
 			intArray1[i] = intArray[i];
@@ -29,7 +31,9 @@ public class IntegerStack {
 		//A. create an integer variable and initialize it to the
 		//   last element of the member array.
 		int number;
-		number = intArray[intArray.length-1];
+		number = intArray[intArray.length];
+		//System.out.println(number);
+		
 		//B. create a new array that is one element smaller than the member array
 		int  intArray2[] = new int[intArray.length-1]; 
 	//	System.out.println(intArray2.length);
