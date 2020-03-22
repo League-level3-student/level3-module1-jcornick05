@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -13,7 +14,7 @@ import javax.swing.JPanel;
 public class _02_TextUndoRedo implements KeyListener {
 	JFrame frame = new JFrame();
 	JPanel panel = new JPanel();
-	List<String> letters = new ArrayList<>();
+	Stack<Character> letters = new Stack<Character>();
 	JLabel label = new JLabel();
 	/*
 	 * Create a JFrame with a JPanel and a JLabel.
@@ -37,27 +38,35 @@ public class _02_TextUndoRedo implements KeyListener {
 	}
 
 	public void Type() {
-		frame.add(panel);
-		panel.add(label);
 		label.addKeyListener(this);
-		for (int i = 0; i < letters.size(); i++) {
-			label = new JLabel(letters.get(i));
-		}
+		frame.add(panel);			
+		panel.add(label);
 		frame.pack();
 		frame.setVisible(true);
 	}
 
-	@Override
+	@Override         
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		String b = ;
-		letters.add();
+		// String b = ;
+		char character = e.getKeyChar();
+		letters.push(character);
+		
+		for (int i = 0; i < letters.size(); i++) {
+			//String s = String.valueOf(letters.get(i));
+			label.setText(label.getText() + letters.pop());
+			System.out.println(letters.pop());
+		}
+		
+		
+		
+
+		// the character of the key
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
 
 	}
 
