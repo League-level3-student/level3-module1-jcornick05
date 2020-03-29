@@ -41,6 +41,7 @@ public class _02_TextUndoRedo implements KeyListener {
 		label.addKeyListener(this);
 		frame.add(panel);			
 		panel.add(label);
+		label.setText(letters + "");
 		frame.pack();
 		frame.setVisible(true);
 	}
