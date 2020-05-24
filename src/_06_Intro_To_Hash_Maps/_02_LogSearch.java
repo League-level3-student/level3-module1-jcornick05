@@ -1,7 +1,14 @@
 package _06_Intro_To_Hash_Maps;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
 
-public class _02_LogSearch {
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+public class _02_LogSearch implements ActionListener {
   /* 
 	 * Crate a HashMap of Integers for the keys and Strings for the values.
 	 * Create a GUI with three buttons. 
@@ -29,5 +36,78 @@ public class _02_LogSearch {
 	 * 				is not in the list. 
 	 *
 	 * */
-	
+	HashMap<Integer, String> log = new HashMap<Integer, String>();
+	JFrame frame = new JFrame();
+	JPanel panel = new JPanel();
+	JButton add = new JButton();
+	JButton search = new JButton();
+	JButton view = new JButton();
+	JButton remove = new JButton();
+	public static void main(String[] args) {
+		new _02_LogSearch().GUI();
+	}
+	void GUI() {
+		frame.add(panel);
+		panel.add(add);
+		panel.add(search);
+		panel.add(view);
+		panel.add(remove);
+		add.setText("Add a log entry");
+		search.setText("Search a log entry");
+		view.setText("View entire log");
+		remove.setText("Remove a log entry");
+		frame.setVisible(true);
+		add.addActionListener(this);
+		search.addActionListener(this);
+		view.addActionListener(this);
+		remove.addActionListener(this);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		JButton pressed = (JButton) e.getSource();
+		if (pressed.equals(add)) {
+			String num = JOptionPane.showInputDialog("Enter an ID#:");
+			int ID = Integer.parseInt(num);
+			String name = JOptionPane.showInputDialog("Enter a name:");
+			log.put(ID, name);
+		}
+		if (pressed.equals(search)) {
+			String num = JOptionPane.showInputDialog("Search (ID#):");
+			int ID = Integer.parseInt(num);
+			for (int i = 0; i < log.size(); i++) {
+				if (log.containsKey(ID)) {
+					String name = log.get(ID);
+					JOptionPane.showMessageDialog(null, name + " has this ID (" + ID + ")");
+					break;
+				} else {
+					JOptionPane.showMessageDialog(null, "This ID# cannot be found");
+					break;
+				}
+			}
+		}
+		if (pressed.equals(view)) {
+			JOptionPane.showMessageDialog(null, "Viewing list...");
+			for (Integer ints : log.keySet()) {
+				String name = log.get(ints);
+				JOptionPane.showMessageDialog(null, "ID: " + ints + " Name: " + name);
+			}
+		}
+		if (pressed.equals(remove)) {
+			String num = JOptionPane.showInputDialog("Enter an ID#:");
+			int ID = Integer.parseInt(num);
+			for (int i = 0; i < log.size(); i++) {
+				if (log.containsKey(ID)) {
+					log.remove(ID);
+					JOptionPane.showMessageDialog(null, "Entry with ID# " + ID + " has been removed.");
+					break;
+				} else {
+					JOptionPane.showMessageDialog(null, "This ID# is not in the log");
+					break;
+				}
+			}
+		}
+	}
+
 }

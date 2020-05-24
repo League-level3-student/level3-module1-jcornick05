@@ -1,10 +1,7 @@
 package _03_IntroToStacks;
 
-import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Stack;
 
 import javax.swing.JFrame;
@@ -12,10 +9,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class _02_TextUndoRedo implements KeyListener {
-	JFrame frame = new JFrame();
-	JPanel panel = new JPanel();
-	Stack<Character> letters = new Stack<Character>();
-	JLabel label = new JLabel();
+	private JLabel label = new JLabel();
+	private JFrame frame = new JFrame();
+	private JPanel panel = new JPanel();
+	private String current;
+	private String next;
+	private Stack<String> characters = new Stack<String>();
+	private Stack<String> redo = new Stack<String>();
 	/*
 	 * Create a JFrame with a JPanel and a JLabel.
 	 * 
@@ -30,45 +30,53 @@ public class _02_TextUndoRedo implements KeyListener {
 	 * the top Character is popped off the Stack and added back to the JLabel.
 	 * 
 	 */
-
 	public static void main(String[] args) {
-		_02_TextUndoRedo t = new _02_TextUndoRedo();
-		t.Type();
-
+		new _02_TextUndoRedo().GUI();
 	}
 
-	public void Type() {
-		label.addKeyListener(this);
-		frame.add(panel);			
-		panel.add(label);
-		label.setText(letters + "");
-		frame.pack();
+	void GUI() {
 		frame.setVisible(true);
+		frame.add(panel);
+		frame.add(label);
+		frame.setSize(500, 100);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.addKeyListener(this);
 	}
 
-	@Override         
+	public void makeText() {
+		String labelText = "";
+		for (String string : characters) {
+			labelText = labelText + string;
+		}
+		label.setText(labelText);
+	}
+	
+	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		// String b = ;
-		char character = e.getKeyChar();
-		letters.push(character);
 		
-		for (int i = 0; i < letters.size(); i++) {
-			//String s = String.valueOf(letters.get(i));
-			label.setText(label.getText() + letters.pop());
-			System.out.println(letters.pop());
-		}
-		
-		
-		
-
-		// the character of the key
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-
+		//System.out.println("typed");
+		current = String.valueOf(e.getKeyChar());
+		if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+			if (!characters.isEmpty()) {
+				String deleted = characters.pop();
+				redo.push(deleted);
+			}
+		} 
+		else if (e.getKeyCode() == KeyEvent.VK_0) {
+			if (!redo.isEmpty()) {
+			String undo = redo.pop();
+			characters.push(undo);
+			}
+		} else {
+			characters.push(current);
+		}
+		makeText();
 	}
 
 	@Override
